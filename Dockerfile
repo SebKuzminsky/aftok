@@ -59,13 +59,18 @@ ADD ./test        /opt/aftok/test
 RUN stack install
 
 # Build the client application and install it where snap can serve it
-ADD ./client /opt/aftok/client
+RUN mkdir -p /opt/aftok/client
+ADD ./client/package.json /opt/aftok/client
+ADD ./client/bower.json   /opt/aftok/client
+ADD ./client/src  /opt/aftok/client/src
+ADD ./client/test /opt/aftok/client/test
+
 WORKDIR /opt/aftok/client
 RUN npm install
-RUN bower install
-RUN pulp build
-RUN pulp browserify --optimise --to dist/aftok.js
-ADD ./dist /opt/aftok/server/static
+RUN ./node_modules/.bin/bower --allow-root install
+
+RUN PATH=./node_modules/.bin:$PATH pulp build
+RUN PATH=./node_modules/.bin:$PATH pulp browserify --optimise --to /opt/aftok/server/static/aftok.js
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
