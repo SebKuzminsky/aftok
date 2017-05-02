@@ -59,6 +59,10 @@ data TimelineAction a
   -- | Open a
   -- | Close a
 
+data Slot = Slot
+derive instance eqSlot :: Eq Slot
+derive instance ordSlot :: Ord Slot
+
 type TimelineEffects eff = HalogenEffects (now :: NOW | eff)
 
 initialState :: forall eff. Eff (now :: NOW | eff) TimelineState

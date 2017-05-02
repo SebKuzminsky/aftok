@@ -1,6 +1,6 @@
 module Aftok.Login where
 
-import Prelude (type (~>), bind, pure, ($), ($>), (<$>), const)
+import Prelude 
 
 
 import Control.Monad.Aff (Aff())
@@ -38,6 +38,11 @@ data LoginAction a
   = SetUsername String a
   | SetPassword String a
   | Login String String a
+
+data Slot = Slot
+derive instance eqSlot :: Eq Slot
+derive instance ordSlot :: Ord Slot
+
 
 -- | The effects used in the login component.
 type LoginEffects eff = HalogenEffects (ajax :: AJAX | eff)
