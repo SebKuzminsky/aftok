@@ -43,5 +43,9 @@
     "webpack-dev-server": "^2.4.5",
     "webpack-node-externals": "^1.5.4",
     "xhr2": "^0.1.3"
+  },
+  "devDependencies": {
+    "purescript": "^0.11.4",
+    "purescript-psa": "^0.5.1"
   }
 }

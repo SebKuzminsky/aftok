@@ -26,15 +26,13 @@ newtype Credentials = Credentials
   , password :: String
   }
 
-derive instance newtypeState :: Newtype State _
+emptyCreds :: Credentials
+emptyCreds = Credentials { username: "", password: "" }
 
 init :: String -> State
 init url = State
   { title: config.title
   , route: match url
-  , view:  Login $ LoginState
-    { credentials: Credentials { username: "", password: "" }
-    , error: Nothing
-    }
+  , view:  Login $ LoginState { credentials: emptyCreds , error: Nothing }
   , credentials: Nothing
   }
