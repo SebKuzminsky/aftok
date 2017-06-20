@@ -2,7 +2,7 @@
 
 read -p "Username: " USER
 echo
-read -p "Project UUID: " PROJECT
+read -p "Project UUID: " PID
 
 curl --verbose --insecure --user $USER \
   --request POST \

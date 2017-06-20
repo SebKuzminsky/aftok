@@ -2,8 +2,7 @@ module App.View.Layout where
 
 import App.View.Login as LoginView
 import App.View.NotFound as NotFound
-import App.Routes (Route(NotFound, Login))
-import App.State (State(..), emptyCreds) 
+import App.State (State(..), ViewState(..), login0) 
 import App.Events (Event)
 import CSS (CSS, fromString, (?), fontSize, display, inlineBlock, marginTop, marginRight, marginLeft, px, value, key, color, backgroundColor, padding, borderRadius)
 import CSS.Border (border, solid)
@@ -23,9 +22,9 @@ view (State st) =
   div ! className "app" $ do
     style css
 
-    case st.route of
-      (Login) ->  LoginView.loginForm emptyCreds
-      (NotFound url) -> NotFound.view (State st)
+    case st.view of
+      (Login s) ->  LoginView.loginForm login0
+      (NotFound _) -> NotFound.view (State st)
 
 css :: CSS
 css = do

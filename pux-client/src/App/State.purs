@@ -8,31 +8,33 @@ import Prelude (($))
 
 newtype State = State
   { title :: String
-  , route :: Route
   , view :: ViewState
   , credentials :: Maybe Credentials
   }
 
 data ViewState
   = Login LoginState
+  | NotFound Route
 
-newtype LoginState = LoginState
+type LoginState = 
   { credentials :: Credentials
   , error :: Maybe String
   }
 
-newtype Credentials = Credentials
+type Credentials = 
   { username :: String
   , password :: String
   }
 
-emptyCreds :: Credentials
-emptyCreds = Credentials { username: "", password: "" }
+creds0 :: Credentials
+creds0 = { username: "", password: "" }
+
+login0 :: LoginState
+login0 = { credentials: creds0 , error: Nothing }
 
 init :: String -> State
 init url = State
   { title: config.title
-  , route: match url
-  , view:  Login $ LoginState { credentials: emptyCreds , error: Nothing }
+  , view:  Login login0
   , credentials: Nothing
   }
