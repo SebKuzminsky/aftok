@@ -2,13 +2,13 @@ module App.View.Login where
 
 import Prelude ((<<<))
 import App.Events (Event(..))
-import App.State
+import App.State (LoginState)
 import Control.Bind (discard)
 import Data.Function (($))
 import Pux.DOM.HTML (HTML)
-import Pux.DOM.Events (onInput, DOMEvent, targetValue)
-import Text.Smolder.HTML (a, div, h1, input, label, form, button)
-import Text.Smolder.HTML.Attributes (className, for, href, id, type', value)
+import Pux.DOM.Events (onInput, targetValue)
+import Text.Smolder.HTML (input, label, form, button)
+import Text.Smolder.HTML.Attributes (for, id, type', value)
 import Text.Smolder.Markup ((!), (#!), text)
 
 loginForm :: LoginState -> HTML Event

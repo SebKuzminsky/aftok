@@ -18,11 +18,16 @@ foldp :: ∀ fx. Event -> State -> EffModel State Event (AppEffects fx)
 foldp (PageView R.Login) (State st) =
   noEffects $ State st { view = Login login0 }
 
-foldp (UsernameChange evt) (State (st @ { view: Login s })) =
+foldp (UsernameChange n) (State (st @ { view: Login s })) =
   let
-    updateCreds c = c { username = evt }
+    updateCreds c = c { username = n }
+    loginView = Login $ s { credentials = updateCreds s.credentials }
+  in
+    noEffects $ State st { view = loginView }
 
-    loginView :: ViewState
+foldp (PasswordChange p) (State (st @ { view: Login s })) =
+  let
+    updateCreds c = c { password = p }
     loginView = Login $ s { credentials = updateCreds s.credentials }
   in
     noEffects $ State st { view = loginView }

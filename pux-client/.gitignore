@@ -1,6 +1,7 @@
 /node_modules/
 /bower_components/
 /output/
+/static/dist/
 
 # editor stuff
 .psc-ide-port
