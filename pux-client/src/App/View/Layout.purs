@@ -23,7 +23,7 @@ view (State st) =
     style css
 
     case st.view of
-      (Login s) ->  LoginView.loginForm login0
+      (Login s) ->  LoginView.loginForm s
       (NotFound _) -> NotFound.view (State st)
 
 css :: CSS

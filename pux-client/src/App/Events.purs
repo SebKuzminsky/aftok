@@ -3,8 +3,11 @@ module App.Events where
 import App.Routes as R
 import App.State
 import Data.Function (($))
+import Data.Semigroup ((<>))
 import Network.HTTP.Affjax (AJAX)
 import Pux (EffModel, noEffects)
+
+-- import Debug.Trace (trace)
 
 data Event
   = PageView R.Route
@@ -21,15 +24,15 @@ foldp (PageView R.Login) (State st) =
 foldp (UsernameChange n) (State (st @ { view: Login s })) =
   let
     updateCreds c = c { username = n }
-    loginView = Login $ s { credentials = updateCreds s.credentials }
+    viewState = s { credentials = updateCreds s.credentials }
   in
-    noEffects $ State st { view = loginView }
+    noEffects $ State st { view = Login viewState }
 
 foldp (PasswordChange p) (State (st @ { view: Login s })) =
   let
     updateCreds c = c { password = p }
-    loginView = Login $ s { credentials = updateCreds s.credentials }
+    viewState = s { credentials = updateCreds s.credentials }
   in
-    noEffects $ State st { view = loginView }
+    noEffects $ State st { view = Login viewState }
 
 foldp x y = noEffects y
