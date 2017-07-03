@@ -2,7 +2,8 @@ module App.View.Layout where
 
 import App.View.Login as LoginView
 import App.View.NotFound as NotFound
-import App.State (State(..), ViewState(..), login0) 
+import App.View.Home as HomeView
+import App.State (State(State), ViewState(..)) 
 import App.Events (Event)
 import CSS (CSS, fromString, (?), fontSize, display, inlineBlock, marginTop, marginRight, marginLeft, px, value, key, color, backgroundColor, padding, borderRadius)
 import CSS.Border (border, solid)
@@ -23,7 +24,8 @@ view (State st) =
     style css
 
     case st.view of
-      (Login s) ->  LoginView.loginForm s
+      (Login s) -> LoginView.loginForm s
+      Home      -> HomeView.homeView { title: "Home" }
       (NotFound _) -> NotFound.view (State st)
 
 css :: CSS

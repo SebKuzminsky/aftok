@@ -1,13 +1,13 @@
 module App.View.Login where
 
-import Prelude ((<<<))
+import Prelude ((<<<), const)
 import App.Events (Event(..))
 import App.State (LoginState)
 import Control.Bind (discard)
 import Data.Function (($))
-import Data.Semigroup ((<>))
+-- import Data.Semigroup ((<>))
 import Pux.DOM.HTML (HTML)
-import Pux.DOM.Events (onInput, targetValue)
+import Pux.DOM.Events (onInput, onClick, targetValue)
 import Text.Smolder.HTML (input, label, form, button)
 import Text.Smolder.HTML.Attributes (for, id, type', value)
 import Text.Smolder.Markup ((!), (#!), text)
@@ -23,4 +23,4 @@ loginForm ls =
     label ! for "login-password" $ text "Password:"
     input ! type' "password" ! id "login-password" ! value ls.credentials.password #! onInput (PasswordChange <<< targetValue)
 
-    button $ text "Submit"
+    button #! onClick (const SignIn) $ text "Sign In" 

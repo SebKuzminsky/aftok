@@ -7,17 +7,17 @@ import Data.Maybe
 import Prelude (($))
 
 newtype State = State
-  { title :: String
-  , view :: ViewState
-  , credentials :: Maybe Credentials
+  { view :: ViewState
   }
 
 data ViewState
   = Login LoginState
+  | Home
   | NotFound Route
 
 type LoginState = 
   { credentials :: Credentials
+  , submitted :: Boolean
   , error :: Maybe String
   }
 
@@ -30,11 +30,12 @@ creds0 :: Credentials
 creds0 = { username: "", password: "" }
 
 login0 :: LoginState
-login0 = { credentials: creds0 , error: Nothing }
+login0 = { credentials: creds0, submitted: false, error: Nothing }
+
+type HomeState = 
+  { title :: String }
 
 init :: String -> State
 init url = State
-  { title: config.title
-  , view:  Login login0
-  , credentials: Nothing
+  { view: Login login0
   }
