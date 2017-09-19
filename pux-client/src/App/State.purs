@@ -27,13 +27,19 @@ type Credentials =
   }
 
 creds0 :: Credentials
-creds0 = { username: "", password: "" }
+creds0 = { username: ""
+         , password: "" 
+         }
 
 login0 :: LoginState
-login0 = { credentials: creds0, submitted: false, error: Nothing }
+login0 = { credentials: creds0
+         , submitted: false
+         , error: Nothing 
+         }
 
 type HomeState = 
-  { title :: String }
+  { title :: String 
+  }
 
 init :: String -> State
 init url = State
